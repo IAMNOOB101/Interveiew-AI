@@ -1,3 +1,7 @@
+from flask import Flask
+
+app = Flask(__name__)
+
 from flask import Flask, request, jsonify, send_from_directory
 from flask_pymongo import PyMongo
 from flask_cors import CORS
@@ -15,9 +19,13 @@ from datetime import datetime, timedelta
 from difflib import SequenceMatcher
 from flask import send_from_directory
 from bson.objectid import ObjectId
+from dotenv import load_dotenv
 
 app = Flask(__name__)
 CORS(app, resources={r"/api/*": {"origins": "*", "methods": ["GET", "POST", "OPTIONS"]}})
+
+load_dotenv()
+OPENAI_API_KEY = os.getenv("OPEN_API_KEY")
 
 # Configure upload folders
 app.config.update({
@@ -282,41 +290,6 @@ def upload_document():
         })
     except Exception as e:
         return jsonify({"error": str(e)}), 500
-
-# ========== INTERVIEW ENDPOINTS ========== #
-# @app.route('/api/questions', methods=['GET'])
-# def get_questions():
-#     try:
-#         role = request.args.get("role", "").strip().lower()
-#         interview_type = request.args.get("type", "technical").strip().lower()
-
-#         if not role:
-#             return jsonify({"error": "No role specified"}), 400
-
-#         questions = list(questions_collection.find(
-#             {"role": role, "type": interview_type},
-#             {"_id": 0, "question": 1, "correct_answer": 1, "keywords": 1, "difficulty": 1}
-#         ).sort("difficulty", 1))
-
-#         if not questions:
-#             questions = [
-#                 {
-#                     "question": "Describe your work ethic in three words.",
-#                     "correct_answer": "Flexible hardworking and confident",
-#                     "keywords": ["flexible", "hardworking", "confident"],
-#                     "difficulty": "easy"
-#                 },
-#                 {
-#                     "question": "What is your greatest strength?",
-#                     "correct_answer": "One of my biggest strengths is my problem-solving ability...",
-#                     "keywords": ["problem-solving", "strength", "example"],
-#                     "difficulty": "easy"
-#                 }
-#             ]
-
-#         return jsonify({"questions": questions})
-#     except Exception as e:
-#         return jsonify({"error": str(e)}), 500
 
 @app.route('/api/questions', methods=['GET'])
 def get_questions():

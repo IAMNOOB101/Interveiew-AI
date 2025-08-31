@@ -1,6 +1,3 @@
-
-
-
 document.addEventListener("DOMContentLoaded", () => {
     const webcam = document.getElementById("webcam");
     const startInterviewBtn = document.getElementById("start-interview");
