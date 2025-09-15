@@ -1,8 +1,6 @@
+from app import create_app
 from flask import Flask
-
-app = Flask(__name__)
-
-from flask import Flask, request, jsonify, send_from_directory
+from flask import Flask, request, jsonify, send_from_directory, Blueprint
 from flask_pymongo import PyMongo
 from flask_cors import CORS
 from pymongo import MongoClient
@@ -17,12 +15,14 @@ import uuid
 import re
 from datetime import datetime, timedelta
 from difflib import SequenceMatcher
-from flask import send_from_directory
 from bson.objectid import ObjectId
 from dotenv import load_dotenv
 
-app = Flask(__name__)
-CORS(app, resources={r"/api/*": {"origins": "*", "methods": ["GET", "POST", "OPTIONS"]}})
+app = create_app()
+if __name__ == "__main__":
+    app.run()
+    app = Flask(__name__)
+    CORS(app, resources={r"/api/*": {"origins": "*", "methods": ["GET", "POST", "OPTIONS"]}})
 
 load_dotenv()
 OPENAI_API_KEY = os.getenv("OPEN_API_KEY")
@@ -63,197 +63,6 @@ except Exception as e:
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in app.config['ALLOWED_EXTENSIONS']
 
-def send_otp(email, otp_code):
-    """Send OTP email (configure with your SMTP credentials)"""
-    try:
-        sender_email = "mockmate1@gmail.com"
-        sender_password = "sqkh tfwj wlqa kaec"
-        
-        msg = MIMEMultipart()
-        msg['From'] = sender_email
-        msg['To'] = email
-        msg['Subject'] = "Your OTP Code"
-        
-        body = f"Your OTP code is: {otp_code}\n\nPlease do not share this OTP with anyone."
-        msg.attach(MIMEText(body, 'plain'))
-        
-        with smtplib.SMTP('smtp.gmail.com', 587) as server:
-            server.starttls()
-            server.login(sender_email, sender_password)
-            server.sendmail(sender_email, email, msg.as_string())
-        
-        print(f"✅ OTP sent to {email}")
-        return True
-    except Exception as e:
-        print(f"🚨 Failed to send OTP: {e}")
-        print(f"📧 OTP for {email}: {otp_code}")  # Fallback
-        return False
-
-def evaluate_answer(user_answer, correct_answer, keywords=[]):
-    """Enhanced answer evaluation with similarity scoring"""
-    if not user_answer.strip():
-        return {
-            "score": 0,
-            "is_correct": False,
-            "feedback": "You didn't provide an answer.",
-            "suggestion": "Please try to answer the question."
-        }
-    
-    similarity = SequenceMatcher(None, user_answer.lower(), correct_answer.lower()).ratio()
-    matched_keywords = [kw for kw in keywords if kw.lower() in user_answer.lower()]
-    keyword_score = len(matched_keywords) / len(keywords) if keywords else 0
-    score = (0.7 * similarity) + (0.3 * keyword_score)
-    
-    if score >= 0.8:
-        feedback = "Excellent answer! You covered all key points."
-        suggestion = "Great job! You might add more examples next time."
-    elif score >= 0.5:
-        feedback = f"Good attempt. You covered {len(matched_keywords)} of {len(keywords)} key terms."
-        suggestion = f"Try to include: {', '.join(kw for kw in keywords if kw not in matched_keywords)}"
-    else:
-        feedback = "Your answer doesn't match the expected response."
-        suggestion = f"Consider including: {correct_answer[:100]}..." if correct_answer else "Review the question requirements."
-
-    return {
-        "score": score,
-        "is_correct": score >= 0.8,
-        "feedback": feedback,
-        "suggestion": suggestion,
-        "matched_keywords": matched_keywords
-    }
-
-# ========== AUTHENTICATION ENDPOINTS ========== #
-@app.route('/api/signup', methods=['POST'])
-def signup():
-    try:
-        data = request.get_json()
-        email = data.get("email", "").strip().lower()
-        password = data.get("password", "").strip()
-        first_name = data.get("first_name", "").strip()
-        last_name = data.get("last_name", "").strip()
-
-        if not email or not password:
-            return jsonify({"error": "Email and password are required"}), 400
-
-        if not re.match(r"[^@]+@[^@]+\.[^@]+", email):
-            return jsonify({"error": "Invalid email format"}), 400
-
-        if users_collection.find_one({"email": email}):
-            return jsonify({"error": "User already exists"}), 409
-
-        hashed_password = generate_password_hash(password)
-        user = {
-            "email": email,
-            "password": hashed_password,
-            "first_name": first_name,
-            "last_name": last_name,
-            "resume": "",
-            "created_at": datetime.utcnow()
-        }
-
-        users_collection.insert_one(user)
-        return jsonify({"message": "Signup successful!"}), 201
-    except Exception as e:
-        return jsonify({"error": str(e)}), 500
-
-@app.route('/api/login', methods=['POST'])
-def login():
-    try:
-        data = request.get_json()
-        email = data.get("email", "").strip().lower()
-        password = data.get("password", "").strip()
-
-        user = users_collection.find_one({"email": email})
-        if not user or not check_password_hash(user["password"], password):
-            return jsonify({"error": "Invalid email or password"}), 401
-
-        users_collection.update_one(
-            {"email": email},
-            {"$set": {"last_login": datetime.utcnow()}}
-        )
-
-        return jsonify({
-            "message": "Login successful!",
-            "user": {
-                "email": user["email"],
-                "first_name": user.get("first_name", ""),
-                "last_name": user.get("last_name", ""),
-                "resume": user.get("resume", "")
-            }
-        })
-    except Exception as e:
-        return jsonify({"error": str(e)}), 500
-
-@app.route('/api/forgot_password', methods=['POST'])
-def forgot_password():
-    try:
-        data = request.get_json()
-        email = data.get("email", "").strip().lower()
-
-        if not users_collection.find_one({"email": email}):
-            return jsonify({"error": "User not found"}), 404
-
-        otp_code = str(random.randint(1000, 9999))
-        otp_collection.update_one(
-            {"email": email},
-            {"$set": {"otp": otp_code, "created_at": datetime.utcnow()}},
-            upsert=True
-        )
-
-        if not send_otp(email, otp_code):
-            return jsonify({
-                "message": "OTP sent to your email",
-                "otp": otp_code  # Remove this in production
-            })
-
-        return jsonify({
-            "message": "OTP sent to your email",
-            "otp": otp_code  # Remove this in production
-        })
-    except Exception as e:
-        return jsonify({"error": str(e)}), 500
-
-@app.route('/api/verify_otp', methods=['POST'])
-def verify_otp():
-    try:
-        data = request.get_json()
-        email = data.get("email", "").strip().lower()
-        otp_code = data.get("otp", "").strip()
-
-        otp_record = otp_collection.find_one({
-            "email": email,
-            "otp": otp_code,
-            "created_at": {"$gte": datetime.utcnow() - timedelta(minutes=5)}
-        })
-        
-        if not otp_record:
-            return jsonify({"error": "Invalid or expired OTP"}), 400
-
-        return jsonify({"message": "OTP verified successfully!"})
-    except Exception as e:
-        return jsonify({"error": str(e)}), 500
-
-@app.route('/api/reset_password', methods=['POST'])
-def reset_password():
-    try:
-        data = request.get_json()
-        email = data.get("email", "").strip().lower()
-        new_password = data.get("new_password", "").strip()
-
-        if len(new_password) < 8:
-            return jsonify({"error": "Password must be at least 8 characters"}), 400
-
-        hashed_password = generate_password_hash(new_password)
-        result = users_collection.update_one(
-            {"email": email},
-            {"$set": {"password": hashed_password}}
-        )
-        
-        if result.modified_count == 1:
-            return jsonify({"message": "Password reset successful!"})
-        return jsonify({"error": "Failed to reset password"}), 400
-    except Exception as e:
-        return jsonify({"error": str(e)}), 500
 
 @app.route('/api/document/upload', methods=['POST'])
 def upload_document():
