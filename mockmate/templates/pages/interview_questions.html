@@ -4,13 +4,16 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>MockMate Interview</title>
-  <link rel="stylesheet" href="interview_questions.css" />
+  <link rel="stylesheet" href="/static/css/interview_questions.css" />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
   <!-- TensorFlow and BlazeFace -->
   <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
   <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/blazeface"></script>
 </head>
 <body>
+  {% include 'includes/header.html' %}
+  {% include 'includes/sidebar.html' %}
+  {% include 'includes/footer.html' %}
   <div class="interview-container">
     <!-- Video Panel -->
     <div class="video-panel">
@@ -52,6 +55,6 @@
   </div>
 
   <!-- Main JavaScript -->
-  <script src="interview_questions.js"></script>
+  <script src="/static/js/interview_questions.js"></script>
 </body>
 </html>

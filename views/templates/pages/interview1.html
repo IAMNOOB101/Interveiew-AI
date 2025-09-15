@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MockMate Interview</title>
+    <link rel="stylesheet" href="/static/css/main.css">
+</head>
+<body>
+    {% include 'includes/header.html' %}
+    {% include 'includes/sidebar.html' %}
+    <div class="main-content">
+        <div class="top-bar">
+            <h2>MockMate</h2>
+            <input type="text" placeholder="🔍 Ask any question..." class="search-bar">
+            <button class="toggle-theme">🌙</button>
+        </div>
+        <div class="container">
+            <h2>Start Your Next Interview</h2>
+            <label for="resume">Resume </label>
+            <input type="file" id="resume">
+            <label for="role">Role</label>
+            <select id="role">
+                <option value="">Select your Role</option>
+                <option value="developer">Developer</option>
+                <option value="designer">Designer</option>
+            </select>
+            <label for="knowledge">Select Knowledge Domain </label>
+            <select id="knowledge">
+                <option value="general">General</option>
+                <option value="technical">Technical</option>
+            </select>
+            <label for="interviewType">Interview Type </label>
+            <select id="interviewType">
+                <option value="general">General</option>
+                <option value="technical">Technical</option>
+            </select>
+            <h3>Schedule your interview</h3>
+            <div class="schedule-buttons">
+                <button id="immediate" class="active">Immediately</button>
+                <button id="set-time">Set Date and Time</button>
+            </div>
+            <div id="date-time-picker" class="hidden">
+                <label for="date">Pick a date</label>
+                <input type="date" id="date">
+                <label for="time">Select your time</label>
+                <input type="time" id="time">
+            </div>
+            <div class="action-buttons">
+                <button id="cancel">Cancel</button>
+                <button id="save">Save for Later</button>
+            </div>
+        </div>
+    </div>
+    {% include 'includes/footer.html' %}
+    <script src="/static/js/display.js"></script>
+    <script src="/static/js/interview1.js"></script>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MockMate Interview</title>
+    <link rel="stylesheet" href="/static/css/main.css">
+</head>
+<body>
+
+    {% include 'includes/header.html' %}
+    {% include 'includes/sidebar.html' %}
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Navbar (Same as preparationhub.html) -->
+        <div class="top-bar">
+            <h2>MockMate</h2>
+            <input type="text" placeholder="🔍 Ask any question..." class="search-bar">
+            <button class="toggle-theme">🌙</button>
+        </div>
+
+    
+        <div class="container">
+            <h2>Start Your Next Interview</h2>
+
+            <label for="resume">Resume </label>
+            <input type="file" id="resume">
+
+            <label for="role">Role</label>
+            <select id="role">
+                <option value="">Select your Role</option>
+                <option value="developer">Developer</option>
+                <option value="designer">Designer</option>
+            </select>
+
+            <label for="knowledge">Select Knowledge Domain </label>
+            <select id="knowledge">
+                <option value="general">General</option>
+                <option value="technical">Technical</option>
+            </select>
+
+            <label for="interviewType">Interview Type </label>
+            <select id="interviewType">
+                <option value="general">General</option>
+                <option value="technical">Technical</option>
+            </select>
+
+            <h3>Schedule your interview</h3>
+            <div class="schedule-buttons">
+                <button id="immediate" class="active">Immediately</button>
+                <button id="set-time">Set Date and Time</button>
+            </div>
+
+            <div id="date-time-picker" class="hidden">
+                <label for="date">Pick a date</label>
+                <input type="date" id="date">
+
+                <label for="time">Select your time</label>
+                <input type="time" id="time">
+            </div>
+
+            <div class="action-buttons">
+                <button id="cancel">Cancel</button>
+                <button id="save">Save for Later</button>
+            </div>
+        </div>
+    </div>
+    {% include 'includes/footer.html' %}
+    
+<script src="/static/js/display.js"></script>
+
+
+    <script src="/static/js/interview1.js"></script>
+</body>
+</html>

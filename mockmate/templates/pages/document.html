@@ -4,9 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MockMate - Profile Form</title>
-    <link rel="stylesheet" href="document.css">
+    <link rel="stylesheet" href="/static/css/document.css">
 </head>
 <body>
+    {% include 'includes/header.html' %}
+    {% include 'includes/sidebar.html' %}
+    {% include 'includes/footer.html' %}
     <div class="navbar">
         <div class="logo">MockMate</div>
         <div class="search-container">
@@ -22,17 +25,17 @@
     <div class="container">
         <div class="sidebar"> 
             <div class="profile">
-                <img src="user.png" alt="Profile Picture">
+                <img src="/static/assets/user.png" alt="Profile Picture">
                 <span id="sidebar-username">Username</span>
             </div>
             <ul>
-                <li><a href="dashboard.html">📊 Dashboard</a></li>
-                <li><a href="interview1.html">💼 Interview</a></li>
-                <li><a href="document.html">📂 Document Centre</a></li>
-                <li><a href="preparationhub.html">📚 Preparation Hub</a></li>
-                <li><a href="portfolio.html">🖼️ My Portfolio</a></li>
+                <li><a href="/dashboard">📊 Dashboard</a></li>
+                <li><a href="/interview1">💼 Interview</a></li>
+                <li><a href="/document">📂 Document Centre</a></li>
+                <li><a href="/preparationhub">📚 Preparation Hub</a></li>
+                <li><a href="/portfolio">🖼️ My Portfolio</a></li>
             </ul>
-            <a href="login.html">
+            <a href="/login">
                 <button class="logout-btn">🚪 Logout</button>
             </a>
         </div>
@@ -54,7 +57,8 @@
             </form>
         </div>
     </div>
-    <script src="document.js"></script>
+    <script src="/static/js/display.js"></script>
+    <script src="/static/js/document.js"></script>
 </body>
 </html> 
 

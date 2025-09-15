@@ -1,0 +1,178 @@
+/* Header Styles */
+.site-header {
+  background: var(--primary-color);
+  color: var(--white);
+  padding: 0.5rem 0;
+  box-shadow: 0 2px 8px rgba(44, 62, 80, 0.05);
+}
+
+.container {
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.navbar {
+    background-color: #24619e;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 2rem;
+}
+.navbar-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1.25rem;
+  color: var(--white);
+  text-decoration: none;
+}
+
+.navbar-brand span {
+    font-family: Arial, sans-serif;
+    color: #2c3e50;
+}
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 1.5rem;
+  margin: 0;
+}
+.nav-links li a {
+  color: black;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+.nav-links li a:hover {
+  color: var(--accent-color);
+}
+
+/* DASHBOARD STYLES */
+.main-content {
+    flex: 1;
+    padding: 20px;
+}
+
+.dashboard-header {
+    background-image: linear-gradient(#007bff, #007bff) url('/Mockmate/mockmate/static/assets/mockmate.png');
+    background-size: cover;
+    background-position: center;
+    align-items: left;
+    background: #007bff;
+    padding: 10px;
+    color: white;
+    border-radius: 5px;
+}
+
+.image-box {
+    position: relative;
+    text-align: center;
+    color: white;
+    width: 100%;
+}
+
+/* Footer Styles */
+.site-footer {
+  background: var(--primary-color);
+  color: var(--white);
+  padding: 1rem 0;
+  text-align: center;
+  margin-top: 2rem;
+}
+.footer-links {
+  list-style: none;
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin: 0.5rem 0 0 0;
+  padding: 0;
+}
+.footer-links li a {
+  color: var(--white);
+  text-decoration: none;
+  font-size: 0.95rem;
+  transition: color 0.2s;
+}
+.footer-links li a:hover {
+  color: var(--accent-color);
+}
+/* Unified Mockmate Theme */
+:root {
+  --primary-color: #2c3e50;
+  --secondary-color: #007bff;
+  --accent-color: #f4f4f4;
+  --background-color: #f5f7fa;
+  --text-color: #333;
+  --white: #fff;
+  --font-family: "Poppins", Arial, sans-serif;
+}
+
+body {
+  font-family: var(--font-family);
+  background-color: var(--background-color);
+  color: var(--text-color);
+  margin: 0;
+  padding: 0;
+}
+
+.sidebar {
+  background-color: var(--primary-color);
+  color: var(--white);
+}
+
+.sidebar ul li a {
+  color: var(--white);
+}
+
+.top-bar,
+.navbar {
+  background-color: var(--white);
+  color: var(--primary-color);
+  font-family: var(--font-family);
+}
+
+.btn,
+button {
+  background-color: var(--secondary-color);
+  color: var(--white);
+  font-family: var(--font-family);
+  border-radius: 5px;
+  border: none;
+}
+
+input,
+select,
+textarea {
+  font-family: var(--font-family);
+  border-radius: 5px;
+  border: 1px solid var(--primary-color);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-family);
+  color: var(--primary-color);
+}
+
+/* Utility classes */
+.bg-primary {
+  background-color: var(--primary-color) !important;
+  color: var(--white) !important;
+}
+.bg-accent {
+  background-color: var(--accent-color) !important;
+}
+.text-primary {
+  color: var(--primary-color) !important;
+}
+.text-accent {
+  color: var(--accent-color) !important;
+}

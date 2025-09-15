@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MockMate - Interview</title>
+    <link rel="stylesheet" href="/static/css/main.css">
+    <script defer src="/static/js/display.js"></script>
+    <script defer src="/static/js/facecam.js"></script>
+        {% include 'includes/footer.html' %}
+</head>
+<body>
+    {% include 'includes/header.html' %}
+    {% include 'includes/sidebar.html' %}
+    {% include 'includes/footer.html' %}
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="profile-section">
+            <img src="/static/assets/user.png" alt="Profile" class="profile-pic">
+            <span class="profile-name">username</span>
+        </div>
+        <div class="logo">MockMate</div>
+        <div class="search-bar">
+            <input type="text" placeholder="Ask any question...">
+            <button>🔍</button>
+            <span class="profile-name" id="navbar-username">username</span>
+        </div>
+    </nav>
+
+    <!-- Sidebar + Main Content -->
+    <div class="main-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <ul>
+                <li><a href="/dashboard">📊 Dashboard</a></li>
+                <li><a href="/interview1" class="active">📝 Interview</a></li>
+                <li><a href="/document">📂 Document Centre</a></li>
+                <li><a href="/preparationhub">📚 Preparation Hub</a></li>
+                <li><a href="/portfolio">💼 My Portfolio</a></li>
+                <li><a href="/login" class="logout">🚪 Logout</a></li>
+            </ul>
+        </aside>
+
+        <!-- Interview Section -->
+        <div class="interview-container">
+            <div class="interview-header">
+                <h2>Mock Interview Preparation</h2>
+                <p class="subtitle">Practice your interview skills with real-time feedback</p>
+            </div>
+
+            <div class="content-wrapper">
+                <!-- Left Column -->
+                <div class="left-column">
+                    <!-- Instructions -->
+                    <div class="card instructions">
+                        <h3>📋 Instructions</h3>
+                        <ul>
+                            <li>✅ Ensure good lighting and a quiet environment</li>
+                            <li>✅ Position your face clearly in the camera</li>
+                            <li>✅ Speak clearly when answering questions</li>
+                            <li>✅ Maintain eye contact with the camera</li>
+                            <li>✅ Click Start when ready to begin</li>
+                        </ul>
+                    </div>
+
+                    <!-- Confidence Meter -->
+                    <div class="card confidence-meter">
+                        <h3>📊 Confidence Analysis</h3>
+                        <div class="meter-bar">
+                            <div class="meter-fill" id="confidence-level">0%</div>
+                        </div>
+                        <p id="confidence-feedback">Waiting for analysis...</p>
+                        <div class="confidence-tips">
+                            <p><strong>Tips to improve:</strong></p>
+                            <ul>
+                                <li>Smile naturally to boost confidence</li>
+                                <li>Maintain good posture</li>
+                                <li>Speak at a moderate pace</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column -->
+                <div class="right-column">
+                    <!-- Webcam Preview -->
+                    <div class="card webcam-container">
+                        <h3>🎥 Camera Preview</h3>
+                        <video id="webcam" autoplay></video>
+                        <div class="controls">
+                            <button id="mic-btn" title="Toggle Microphone">🎤</button>
+                            <button id="camera-btn" title="Toggle Camera">📷</button>
+                            <button id="menu-btn" title="Settings">⚙️</button>
+                        </div>
+                    </div>
+
+                    <!-- Voice Recognition -->
+                    <div class="card voice-container">
+                        <h3>🎙️ Voice Recognition</h3>
+                        <button id="start-voice" class="voice-btn">Start Voice Recognition</button>
+                        <div class="speech-output">
+                            <p id="speech-text">Your speech will appear here...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Start Button -->
+            <button class="start-btn" id="start-interview">
+                🚀 Start Mock Interview
+            </button>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,71 +1,3 @@
-// document.addEventListener("DOMContentLoaded", function () {
-//     const immediateBtn = document.getElementById("immediate");
-//     const setTimeBtn = document.getElementById("set-time");
-//     const saveBtn = document.getElementById("save");
-//     const dateTimePicker = document.getElementById("date-time-picker");
-
-//     // Start Interview Immediately (Redirect to facecam.html first)
-//     immediateBtn.addEventListener("click", function () {
-//         const role = document.getElementById("role").value;
-//         const interviewType = document.getElementById("interviewType").value;
-//         const knowledgeDomain = document.getElementById("knowledge").value;
-
-//         if (!role || !interviewType) {
-//             alert("Please select a Role and Interview Type before starting.");
-//             return;
-//         }
-
-//         // Store the details in localStorage
-//         localStorage.setItem("selectedRole", role);
-//         localStorage.setItem("selectedInterviewType", interviewType);
-//         localStorage.setItem("selectedKnowledgeDomain", knowledgeDomain);
-//         // localStorage.setItem("selectedRole", role);
-// // localStorage.setItem("interviewType", interviewType);
-
-
-//         // Redirect to facecam.html first
-//         window.location.href = "facecam.html";
-//     });
-
-//     // Show Date-Time Picker when "Set Date and Time" is clicked
-//     setTimeBtn.addEventListener("click", function () {
-//         dateTimePicker.classList.toggle("hidden");
-//     });
-
-//     // Save Interview for Later
-//     saveBtn.addEventListener("click", function () {
-//         const role = document.getElementById("role").value;
-//         const interviewType = document.getElementById("interviewType").value;
-//         const knowledgeDomain = document.getElementById("knowledge").value;
-//         const date = document.getElementById("date").value;
-//         const time = document.getElementById("time").value;
-
-//         const interviewDetails = {
-//             role: role,
-//             interviewType: interviewType,
-//             knowledgeDomain: knowledgeDomain,
-//             date: date,
-//             time: time
-//         };
-
-//         localStorage.setItem("savedInterview", JSON.stringify(interviewDetails));
-//         alert("Interview details saved!");
-//     });
-
-//     // Load saved data (if any)
-//     function loadSavedData() {
-//         const savedData = JSON.parse(localStorage.getItem("savedInterview"));
-//         if (savedData) {
-//             document.getElementById("role").value = savedData.role;
-//             document.getElementById("interviewType").value = savedData.interviewType;
-//             document.getElementById("knowledge").value = savedData.knowledgeDomain;
-//             document.getElementById("date").value = savedData.date;
-//             document.getElementById("time").value = savedData.time;
-//         }
-//     }
-
-//     loadSavedData();
-// });
 document.addEventListener("DOMContentLoaded", function() {
   const immediateBtn = document.getElementById("immediate");
   const setTimeBtn = document.getElementById("set-time");
@@ -76,7 +8,7 @@ document.addEventListener("DOMContentLoaded", function() {
   const interviewTypeSelect = document.getElementById("interviewType");
   const knowledgeSelect = document.getElementById("knowledge");
   if (!localStorage.getItem('userEmail')) {
-      window.location.href = "login.html";
+    window.location.href = "/login";
       return;
   }
   // Start Interview Immediately
@@ -111,7 +43,7 @@ document.addEventListener("DOMContentLoaded", function() {
           }
 
           // Redirect to facecam
-          window.location.href = "facecam.html";
+          window.location.href = "/facecam";
       } catch (error) {
           console.error("Error:", error);
           alert("Error starting interview: " + error.message);

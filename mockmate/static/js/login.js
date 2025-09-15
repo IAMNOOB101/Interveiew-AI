@@ -69,7 +69,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 localStorage.setItem('user', JSON.stringify(data.user));
                 
                 alert("Login successful! Redirecting...");
-                window.location.href = "dashboard.html";
+                window.location.href = "/dashboard";
             }
         })
         .catch(error => {

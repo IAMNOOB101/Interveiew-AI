@@ -35,7 +35,7 @@ document.addEventListener("DOMContentLoaded", function() {
             localStorage.removeItem('userLastName');
             localStorage.removeItem('userEmail');
             localStorage.removeItem('token');
-            window.location.href = "login.html";
+        window.location.href = "/login";
         });
     });
 
@@ -46,4 +46,26 @@ document.addEventListener("DOMContentLoaded", function() {
             document.body.classList.toggle('dark-mode');
         });
     }
+
+    // Highlight the active sidebar link based on current path
+    function setupSidebarActive() {
+        const path = window.location.pathname.replace(/\/$/, ''); // strip trailing slash
+        const current = path.split('/').pop() || 'dashboard';
+        document.querySelectorAll('.sidebar a').forEach(a => {
+            // compare last segment of href
+            try {
+                const href = new URL(a.href, window.location.origin).pathname;
+                const last = href.split('/').filter(Boolean).pop();
+                if (last === current) {
+                    a.parentElement.classList.add('active');
+                } else {
+                    a.parentElement.classList.remove('active');
+                }
+            } catch (e) {
+                // ignore malformed hrefs
+            }
+        });
+    }
+
+    setupSidebarActive();
 });

@@ -117,7 +117,7 @@ async function sendOTP() {
             
             // Redirect to OTP page after a short delay
             setTimeout(() => {
-                window.location.href = `otp.html?email=${encodeURIComponent(email)}`;
+                window.location.href = `/otp?email=${encodeURIComponent(email)}`;
             }, 1000);
         } else {
             messageBox.style.color = "red";

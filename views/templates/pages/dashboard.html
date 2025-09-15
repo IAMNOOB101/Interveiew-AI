@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard - MockMate</title>
+    <link rel="stylesheet" href="/static/css/dashboard.css" />
+  </head>
+  <body>
+    {% include 'includes/header.html' %} {% include 'includes/sidebar.html' %}
+    <div class="main-content">
+      <div class="dashboard-header">
+        <h2>Welcome to MockMate Dashboard</h2>
+      </div>
+      <div class="dashboard-widgets">
+        <div class="widget">
+          <h3>Upcoming Interviews</h3>
+          <ul>
+            <li>Interview with Google - Tomorrow</li>
+            <li>Interview with Amazon - Next Week</li>
+          </ul>
+        </div>
+        <div class="widget">
+          <h3>Saved Interviews</h3>
+          <ul>
+            <li>Frontend Developer - 2 days ago</li>
+            <li>Backend Developer - 1 week ago</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    {% include 'includes/footer.html' %}
+    <script src="/static/js/dashboard.js"></script>
+  </body>
+</html>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MockMate Dashboard</title>
+    <link rel="stylesheet" href="/static/css/main.css" />
+    <script defer src="/static/js/display.js"></script>
+    <script defer src="/static/js/dashboard.js"></script>
+  </head>
+  <body>
+    {% include 'includes/header.html' %} {% include 'includes/sidebar.html' %}
+    <div class="main-content">
+      <div class="top-bar">
+        <h2>MockMate</h2>
+        <input
+          type="text"
+          placeholder="🔍 Ask any question..."
+          class="search-bar"
+        />
+        <!-- <button class="toggle-theme">🌙</button> -->
+      </div>
+      <div class="content">
+        <div class="text-box">
+          <p>
+            💡 Preparing for interviews has never been easier with the power of
+            AI. Whether you're gearing up for technical rounds, behavioral
+            interviews, or aptitude tests, AI tools provide personalized
+            feedback, simulate interview scenarios, and highlight areas for
+            improvement.
+          </p>
+          <p>
+            🚀 AI-driven solutions ensure you're confident and ready to ace any
+            interview. Leverage AI to elevate your preparation with personalized
+            feedback and real-time practice sessions.
+          </p>
+          <p>
+            🎯 AI analyzes your responses to identify patterns and suggest
+            targeted improvements, helping you refine your communication skills
+            and technical knowledge.
+          </p>
+          <p>
+            ⏱️ Save time with smart interview preparation that adapts to your
+            schedule and learning pace, providing efficient practice sessions
+            whenever you're available.
+          </p>
+          <p>
+            🌐 Experience global interview standards with AI that understands
+            regional variations and company-specific expectations, preparing you
+            for both local and international opportunities.
+          </p>
+          <p>
+            📈 Track your progress over time with detailed analytics and
+            performance metrics to see exactly how you're improving across
+            different interview dimensions.
+          </p>
+        </div>
+        <!-- Right Side - Image -->
+        <div class="image-box">
+          <img src="/static/assets/mockmate.png" alt="Interview Preparation" />
+        </div>
+        {% include 'includes/footer.html' %}
+      </div>
+    </div>
+  </body>
+</html>

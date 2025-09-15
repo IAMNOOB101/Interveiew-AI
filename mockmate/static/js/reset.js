@@ -76,7 +76,7 @@ document.addEventListener("DOMContentLoaded", function() {
     
     if (!email) {
         alert("Session expired. Please start the password reset process again.");
-        window.location.href = "forgetpassword.html";
+    window.location.href = "/forgetpassword";
     }
 });
 
@@ -99,7 +99,7 @@ async function resetPassword() {
 
     if (!email) {
         alert("Session expired. Please start the password reset process again.");
-        window.location.href = "forgetpassword.html";
+    window.location.href = "/forgetpassword";
         return;
     }
 
@@ -132,7 +132,7 @@ async function resetPassword() {
         if (response.ok) {
             alert("Password reset successfully!");
             sessionStorage.removeItem("resetEmail");
-            window.location.href = "login.html";
+            window.location.href = "/login";
         } else {
             alert(`Error: ${data.error}`);
         }

@@ -1,0 +1,23 @@
+{% extends "layout/base.html" %}
+{% block title %}Admin — Users{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+  <h2>Users</h2>
+  <table class="table table-striped">
+    <thead><tr><th>#</th><th>Email</th><th>First</th><th>Last</th><th>Role</th><th>Created</th></tr></thead>
+    <tbody>
+      {% for u in users %}
+      <tr>
+        <td>{{ loop.index }}</td>
+        <td>{{ u.email }}</td>
+        <td>{{ u.first_name or "-" }}</td>
+        <td>{{ u.last_name or "-" }}</td>
+        <td>{{ u.role or "user" }}</td>
+        <td>{{ u.created_at }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

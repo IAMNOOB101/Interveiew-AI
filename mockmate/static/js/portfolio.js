@@ -1118,7 +1118,7 @@ function setupSidebar() {
         localStorage.removeItem('userEmail');
         localStorage.removeItem('interviewAnswers');
         localStorage.removeItem('performanceData');
-        window.location.href = 'login.html';
+        window.location.href = '/login';
     });
 }
 
@@ -1130,14 +1130,14 @@ function setupButtons() {
         reportData.reportGeneratedAt = new Date().toISOString();
         localStorage.setItem("performanceData", JSON.stringify(reportData));
         
-        // Redirect to detailed report page
-        window.location.href = "detailedreport.html";
+    // Redirect to detailed report page
+    window.location.href = "/detailedreport";
     });
 
     // New Interview button
     document.getElementById("new-interview").addEventListener("click", function() {
         // Clear previous interview answers but keep performance data
         localStorage.removeItem('interviewAnswers');
-        window.location.href = "interview_questions.html";
+    window.location.href = "/interview_questions";
     });
 }

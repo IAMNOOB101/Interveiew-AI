@@ -147,7 +147,7 @@ document.addEventListener("DOMContentLoaded", () => {
             webcam.srcObject.getTracks().forEach(track => track.stop());
         }
         // Redirect to interview questions
-        window.location.href = "interview_questions.html";
+    window.location.href = "/interview_questions";
     });
 
     // Start webcam on load

@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const userEmail = localStorage.getItem('userEmail');
     
     if (!userEmail) {
-        window.location.href = "login.html";
+        window.location.href = "/login";
         return;
     }
 
@@ -117,6 +117,6 @@ document.addEventListener("DOMContentLoaded", function () {
         localStorage.removeItem('userLastName');
         localStorage.removeItem('userEmail');
         localStorage.removeItem('token');
-        window.location.href = "login.html";
+        window.location.href = "/login";
     });
 });

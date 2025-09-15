@@ -288,7 +288,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         } else {
             alert("Congratulations! You've completed all questions.");
             setTimeout(() => {
-                window.location.href = "interview_complete.html";
+                window.location.href = "/interview_complete";
             }, 1500);
         }
     });

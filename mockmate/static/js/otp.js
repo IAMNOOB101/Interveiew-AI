@@ -58,7 +58,7 @@ document.addEventListener("DOMContentLoaded", function() {
             if (response.ok) {
                 showMessage("OTP verified successfully! Redirecting...", "success");
                 setTimeout(() => {
-                    window.location.href = `reset.html?email=${encodeURIComponent(email)}`;
+                    window.location.href = `/reset?email=${encodeURIComponent(email)}`;
                 }, 1000);
             } else {
                 throw new Error(data.error || "OTP verification failed");

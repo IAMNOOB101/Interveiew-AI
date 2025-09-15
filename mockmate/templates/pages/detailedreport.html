@@ -4,20 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MockMate - Detailed Report</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/main.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <style>
-        body {
-            font-family: 'Poppins', sans-serif;
-            margin: 0;
-            padding: 20px;
-            background-color: #f5f7fa;
-        }
-        .report-container {
-            max-width: 800px;
-            margin: 0 auto;
-            background: white;
-            padding: 30px;
+        /* ...existing code... */
             border-radius: 8px;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
@@ -77,6 +67,9 @@
     </style>
 </head>
 <body>
+    {% include 'includes/header.html' %}
+    {% include 'includes/sidebar.html' %}
+    {% include 'includes/footer.html' %}
     <div class="report-container" id="report-content">
         <h1>Interview Performance Report</h1>
         
@@ -114,6 +107,6 @@
 
     <button class="btn" id="download-btn">Download Report as PDF</button>
 
-    <script src="detailedreport.js"></script>
+    <script src="/static/js/detailedreport.js"></script>
 </body>
 </html>

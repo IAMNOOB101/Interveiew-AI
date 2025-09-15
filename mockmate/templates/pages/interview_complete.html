@@ -73,13 +73,16 @@
     </style>
 </head>
 <body>
+    {% include 'includes/header.html' %}
+    {% include 'includes/sidebar.html' %}
+    {% include 'includes/footer.html' %}
     <div class="container">
         <div class="icon">✓</div>
         <h1>Interview Completed Successfully!</h1>
         <p>Thank you for using MockMate. Your responses have been saved and you can review them in your portfolio.</p>
         <div class="btn-container">
-            <a href="portfolio.html" class="btn">View Results</a>
-             <a href="dashboard.html" class="btn btn-secondary">Go to Dashboard</a> 
+            <a href="/portfolio" class="btn">View Results</a>
+             <a href="/dashboard" class="btn btn-secondary">Go to Dashboard</a> 
         </div>
     </div>
 </body>

@@ -23,7 +23,7 @@ document.querySelector(".login-btn").addEventListener("click", function (e) {
             alert(data.error);
         } else {
             alert("Signup successful! Redirecting to login...");
-            window.location.href = "login.html";
+            window.location.href = "/login";
         }
     })
     .catch(error => console.error("Error:", error));

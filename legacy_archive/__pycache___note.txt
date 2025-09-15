@@ -1,0 +1,6 @@
+The original __pycache__ could not be removed by the automated patch tool (binary .pyc files). You can safely delete the __pycache__ directory manually or run a powershell command:
+
+# Delete __pycache__ recursively in this folder
+Remove-Item -Recurse -Force .\__pycache__\
+
+This file was created to indicate the cache was archived and should be removed in a follow-up manual step.

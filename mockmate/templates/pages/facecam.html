@@ -4,14 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MockMate - Interview</title>
-    <link rel="stylesheet" href="facecam.css">
-    <script defer src="facecam.js"></script>
+    <link rel="stylesheet" href="/static/css/main.css">
+    <script defer src="/static/js/display.js"></script>
+    <script defer src="/static/js/facecam.js"></script>
 </head>
 <body>
+    {% include 'includes/header.html' %}
+    {% include 'includes/sidebar.html' %}
+    {% include 'includes/footer.html' %}
     <!-- Navbar -->
     <nav class="navbar">
         <div class="profile-section">
-            <img src="user.png" alt="Profile" class="profile-pic">
+            <img src="/static/assets/user.png" alt="Profile" class="profile-pic">
             <span class="profile-name">username</span>
         </div>
         <div class="logo">MockMate</div>
@@ -27,12 +31,12 @@
         <!-- Sidebar -->
         <aside class="sidebar">
             <ul>
-                <li><a href="dashboard.html">📊 Dashboard</a></li>
-                <li><a href="interview.html" class="active">📝 Interview</a></li>
-                <li><a href="document.html">📂 Document Centre</a></li>
-                <li><a href="preparationhub.html">📚 Preparation Hub</a></li>
-                <li><a href="portfolio.html">💼 My Portfolio</a></li>
-                <li><a href="login.html" class="logout">🚪 Logout</a></li>
+                <li><a href="/dashboard">📊 Dashboard</a></li>
+                <li><a href="/interview1" class="active">📝 Interview</a></li>
+                <li><a href="/document">📂 Document Centre</a></li>
+                <li><a href="/preparationhub">📚 Preparation Hub</a></li>
+                <li><a href="/portfolio">💼 My Portfolio</a></li>
+                <li><a href="/login" class="logout">🚪 Logout</a></li>
             </ul>
         </aside>
 

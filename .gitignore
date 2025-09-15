@@ -1,9 +1,20 @@
-README.md
-
-.venv/
-env/
-venv/
-
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
 
 .env
-users.json
+.venv/
+venv/
+env/
+
+# Node
+node_modules/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# uploads or data
+uploads/
