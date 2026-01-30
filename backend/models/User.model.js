@@ -42,5 +42,5 @@ const userSchema = new mongoose.Schema(
   },
   { timestamps: true }
 );
-
+//User model schema
 export default mongoose.model("User", userSchema);
