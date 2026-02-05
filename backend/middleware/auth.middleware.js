@@ -1,13 +1,22 @@
 import jwt from "jsonwebtoken";
 
 export const verifyToken = (req, res, next) => {
-  const token = req.cookies.token;
-  if (!token) return res.status(401).json({ message: "Unauthorized" });
+  const token = req.cookies?.token;
+
+  if (!token) {
+    return res.status(401).json({ message: "Unauthorized" });
+  }
 
   try {
-    req.user = jwt.verify(token, process.env.JWT_SECRET);
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+
+    if (!decoded.id || !decoded.accountType) {
+      return res.status(403).json({ message: "Invalid token payload" });
+    }
+
+    req.user = decoded;
     next();
-  } catch {
-    res.status(403).json({ message: "Invalid token" });
+  } catch (err) {
+    return res.status(403).json({ message: "Invalid token" });
   }
 };

@@ -1,54 +1,50 @@
 import OpenAI from "openai";
+import dotenv from "dotenv";
 
-let client = null;
+dotenv.config();
 
-const getAIClient = () => {
-  if (!process.env.OPENROUTER_API_KEY) {
-    throw new Error("OPENROUTER_API_KEY missing in .env");
-  }
+const client = new OpenAI({
+  apiKey: process.env.OPENAI_API_KEY,
+});
 
-  if (!client) {
-    client = new OpenAI({
-      apiKey: process.env.OPENROUTER_API_KEY,
-      baseURL: process.env.OPENROUTER_BASE_URL,
-      defaultHeaders: {
-        "HTTP-Referer": "http://localhost:5173", // required by OpenRouter
-        "X-Title": "InterviewAI Platform"
-      }
-    });
-  }
+console.log("OPENAI_API_KEY exists:", !!process.env.OPENAI_API_KEY);
 
-  return client;
-};
 
 export const generateQuestion = async ({
   domain,
   experienceLevel,
   salaryRange,
-  language
+  language = "en",
+  previousAnswer = null,
+  resumeText = null,
 }) => {
-  const ai = getAIClient();
+  try {
+    const prompt = `
+You are a professional interview question generator.
 
-  const prompt = `
-You are an expert interview coach.
+Role: ${domain}
+Experience: ${experienceLevel}
+Salary Range: ${salaryRange?.min || "N/A"} - ${salaryRange?.max || "N/A"} LPA
+Language: ${language}
 
-Generate ONE interview question based on:
-- Role: ${domain}
-- Experience: ${experienceLevel}
-- Salary Range: ${salaryRange.min}-${salaryRange.max} LPA
-- Language: ${language}
+${previousAnswer ? `Previous Answer: ${previousAnswer}` : ""}
 
-Rules:
-- Ask only ONE question
-- Adjust difficulty based on salary & experience
-- If language is not English, respond in that language
+Generate ONE concise interview question.
+Only return the question text.
 `;
 
-  const response = await ai.chat.completions.create({
-    model: "openai/gpt-4o-mini", // ✅ OpenRouter model
-    messages: [{ role: "user", content: prompt }],
-    temperature: 0.7
-  });
+    // If resume text is provided, append it to the prompt to make questions contextual
+    const fullPrompt = resumeText ? `${prompt}\n\nResume:\n${resumeText}` : prompt;
 
-  return response.choices[0].message.content;
+    const response = await client.chat.completions.create({
+      model: "gpt-4o-mini",
+      messages: [{ role: "user", content: fullPrompt }],
+      temperature: 0.6,
+    });
+
+    return response.choices[0].message.content.trim();
+  } catch (err) {
+    console.error("Question generation failed:", err.message);
+    throw err;
+  }
 };

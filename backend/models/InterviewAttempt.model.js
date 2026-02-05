@@ -1,35 +1,23 @@
-import mongoose from "mongoose";
+import { InterviewAttemptSQL } from "../db/sequelize.js";
 
-const interviewAttemptSchema = new mongoose.Schema(
-  {
-    userId: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
-      required: true
-    },
+const normalize = (instance) => {
+  if (!instance) return null;
+  const obj = instance.get ? instance.get({ plain: true }) : instance;
+  if (obj.id) obj._id = obj.id;
+  return obj;
+};
 
-    domain: String,
-    language: String,
-
-    salaryRange: {
-      min: Number,
-      max: Number
-    },
-
-    question: String,
-    answer: String,
-
-    evaluation: {
-      contentScore: Number,
-      clarityScore: Number,
-      confidenceScore: Number,
-      overallScore: Number,
-      strengths: [String],
-      improvements: [String],
-      finalFeedback: String
-    }
+export default {
+  create: async (data) => {
+    const r = await InterviewAttemptSQL.create(data);
+    return normalize(r);
   },
-  { timestamps: true }
-);
-
-export default mongoose.model("InterviewAttempt", interviewAttemptSchema);
+  findOne: async (filter) => {
+    const r = await InterviewAttemptSQL.findOne({ where: { ...filter } });
+    return normalize(r);
+  },
+  find: async (filter = {}) => {
+    const rows = await InterviewAttemptSQL.findAll({ where: { ...filter } });
+    return rows.map((r) => normalize(r));
+  },
+};
