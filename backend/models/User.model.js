@@ -14,7 +14,25 @@ export default {
     const r = await UserSQL.findOne({ where });
     return normalize(r);
   },
-  { timestamps: true }
-);
-//User model schema
-export default mongoose.model("User", userSchema);
+  create: async (data) => {
+    const r = await UserSQL.create(data);
+    return normalize(r);
+  },
+  findById: async (id) => {
+    const r = await UserSQL.findByPk(id);
+    return normalize(r);
+  },
+  findByIdAndUpdate: async (id, update) => {
+    await UserSQL.update(update, { where: { id } });
+    const r = await UserSQL.findByPk(id);
+    return normalize(r);
+  },
+  findOneAndUpdate: async (filter, update) => {
+    await UserSQL.update(update, { where: { ...filter } });
+    const r = await UserSQL.findOne({ where: { ...filter } });
+    return normalize(r);
+  },
+  countDocuments: async (filter = {}) => {
+    return UserSQL.count({ where: { ...filter } });
+  },
+};
