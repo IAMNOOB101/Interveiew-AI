@@ -9,6 +9,10 @@ import historyRoutes from "./routes/history.routes.js";
 import adminRoutes from "./routes/admin.routes.js";
 import passwordRoutes from "./routes/password.routes.js";
 import sessionRoutes from "./routes/session.routes.js";
+import { errorHandler } from "./middleware/error.middleware.js";
+import { logger } from "./middleware/logger.middleware.js";
+import resumeRoutes from "./routes/resume.routes.js";
+import paymentRoutes from "./routes/payment.routes.js";
 
 const app = express();
 
@@ -22,6 +26,14 @@ app.use(
     credentials: true,
   })
 );
+
+if(process.env.NODE_ENV !== "production"){
+  app.use(logger);
+}
+
+app.use(errorHandler);
+
+// routes
 app.use("/api/auth", authRoutes);
 app.use("/api/interview", interviewSetupRoutes);
 app.use("/api/interview", interviewRoutes);
@@ -30,6 +42,9 @@ app.use("/api/interview", historyRoutes);
 app.use("/api/admin", adminRoutes);
 app.use("/api/auth", passwordRoutes);
 app.use("/api/interview/session", sessionRoutes);
+app.use("/api/history", historyRoutes);
+app.use("/api/resume", resumeRoutes);
+app.use("/api/payments", paymentRoutes);
 
 // test route
 app.get("/", (req, res) => {

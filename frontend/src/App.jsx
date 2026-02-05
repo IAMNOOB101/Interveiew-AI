@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Login from "./pages/Login";
+import Home from "./pages/Home";
 import Signup from "./pages/Signup";
 import Dashboard from "./pages/Dashboard";
 import Interview from "./pages/Interview";
@@ -19,20 +20,81 @@ export default function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Login />} />
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/setup" element={<InterviewSetup />} />
-        <Route path="/interview" element={<ProtectedRoute><Interview /></ProtectedRoute>} />
-        <Route path="/report/:sessionId" element={<ProtectedRoute><InterviewReport /></ProtectedRoute>} />
-        <Route path="/question" element={<Question />} />
-        <Route path="/evaluate" element={<Evaluate />} />
-        <Route path="/history" element={<History />} />
-        <Route path="/admin" element={<ProtectedRoute role={"ADMIN"}><AdminDashboard /></ProtectedRoute>} />
-        <Route path="/admin/attempts" element={<ProtectedRoute role={"ADMIN"}><Attempts /></ProtectedRoute>} />
-        <Route path="/admin/analytics" element={<ProtectedRoute role={"ADMIN"}><Analytics /></ProtectedRoute>} />
-        <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
-        <Route path="/admin" element={<ProtectedRoute role="ADMIN"><AdminDashboard /></ProtectedRoute>} />
+
+        <Route
+          path="/dashboard"
+          element={
+            <ProtectedRoute>
+              <Dashboard />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/setup"
+          element={
+            <ProtectedRoute>
+              <InterviewSetup />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/interview"
+          element={
+            <ProtectedRoute>
+              <Interview />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/report/:sessionId"
+          element={
+            <ProtectedRoute>
+              <InterviewReport />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/history"
+          element={
+            <ProtectedRoute>
+              <History />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/admin"
+          element={
+            <ProtectedRoute role="ADMIN">
+              <AdminDashboard />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/admin/analytics"
+          element={
+            <ProtectedRoute role="ADMIN">
+              <Analytics />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/admin/attempts"
+          element={
+            <ProtectedRoute role="ADMIN">
+              <Attempts />
+            </ProtectedRoute>
+          }
+        />
       </Routes>
     </BrowserRouter>
   );

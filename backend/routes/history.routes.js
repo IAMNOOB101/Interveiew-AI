@@ -1,9 +1,9 @@
 import express from "express";
-import { getUserInterviewHistory } from "../controllers/history.controller.js";
 import { verifyToken } from "../middleware/auth.middleware.js";
+import { getInterviewTranscript } from "../controllers/history.controller.js";
 
 const router = express.Router();
 
-router.get("/history", verifyToken, getUserInterviewHistory);
+router.get("/:sessionId", verifyToken, getInterviewTranscript);
 
 export default router;

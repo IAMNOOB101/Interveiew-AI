@@ -1,44 +1,18 @@
-import mongoose from "mongoose";
+import { UserSQL } from "../db/sequelize.js";
 
-const userSchema = new mongoose.Schema(
-  {
-    name: String,
-    email: { type: String, unique: true },
-    password: String,
+const normalize = (instance) => {
+  if (!instance) return null;
+  const obj = instance.get ? instance.get({ plain: true }) : instance;
+  // Mongo-like _id for compatibility
+  if (obj.id) obj._id = obj.id;
+  return obj;
+};
 
-    role: {
-      type: String,
-      enum: ["USER", "ADMIN"],
-      default: "USER",
-    },
-
-    interviewProfile: {
-      domain: {
-        type: String,
-        enum: [
-          "software_engineer",
-          "backend_developer",
-          "frontend_developer",
-          "intern",
-          "data_analyst",
-          "full-stack_developer",
-          "devops_engineer",
-          "product_manager",
-        ],
-      },
-      experienceLevel: {
-        type: String,
-        enum: ["fresher", "experienced"],
-      },
-      salaryRange: {
-        min: Number,
-        max: Number,
-      },
-      language: {
-        type: String,
-        default: "en",
-      },
-    },
+export default {
+  findOne: async (filter) => {
+    const where = { ...filter };
+    const r = await UserSQL.findOne({ where });
+    return normalize(r);
   },
   { timestamps: true }
 );

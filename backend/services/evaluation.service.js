@@ -1,81 +1,62 @@
 import OpenAI from "openai";
 
-let client = null;
-
-const getAIClient = () => {
-  if (!client) {
-    client = new OpenAI({
-      apiKey: process.env.OPENROUTER_API_KEY,
-      baseURL: process.env.OPENROUTER_BASE_URL,
-      defaultHeaders: {
-        "HTTP-Referer": "http://localhost:5173",
-        "X-Title": "InterviewAI Platform"
-      }
-    });
-  }
-  return client;
-};
+const client = new OpenAI({
+  apiKey: process.env.OPENAI_API_KEY,
+});
 
 export const evaluateAnswer = async ({
   question,
   answer,
   domain,
   language,
-  salaryRange
+  salaryRange,
+  confidenceSignals,
 }) => {
-  const ai = getAIClient();
-
-  const prompt = `
+  try {
+    const prompt = `
 You are an expert interview evaluator.
-
-Evaluate the candidate's answer based on:
-1. Technical correctness
-2. Clarity of explanation
-3. Confidence in expression
-4. Relevance to the question
-5. Speaking confidence
-6. Hesitation or uncertainty
-7. Fluency of speech
-8. Alignment between spoken answer and question
-9.Confidence in speech
-10. Hesitation or uncertainity
-11.Fluency of spoken language
-
-Context:
-- Domain: ${domain}
-- Expected Salary: ${salaryRange.min}-${salaryRange.max} LPA
-- Language: ${language}
 
 Question:
 "${question}"
 
-Candidate Answer:
+Answer:
 "${answer}"
 
-Return the evaluation STRICTLY in JSON format:
+Evaluate based on:
+- Technical correctness
+- Clarity
+- Confidence
+- Relevance
 
+Return ONLY valid JSON:
 {
-  "contentScore": number (0-10),
-  "clarityScore": number (0-10),
-  "confidenceScore": number (0-10),
-  "speechConfidenceScore": number (0-10),
-  "fluencyScore": number (0-10),
-  "overallScore": number (average),
+  "contentScore": number,
+  "clarityScore": number,
+  "confidenceScore": number,
+  "overallScore": number,
   "strengths": [string],
-  "improvements": [string],
-  "finalFeedback": string
+  "improvements": [string]
 }
-
-IMPORTANT:
-- If language is not English, return feedback in that language
-- Do NOT add any extra text outside JSON
 `;
 
-  const response = await ai.chat.completions.create({
-    model: "openai/gpt-4o-mini",
-    messages: [{ role: "user", content: prompt }],
-    temperature: 0.3
-  });
+    const response = await client.chat.completions.create({
+      model: "gpt-4o-mini",
+      messages: [{ role: "user", content: prompt }],
+      temperature: 0.3,
+    });
 
-  return JSON.parse(response.choices[0].message.content);
+    return JSON.parse(response.choices[0].message.content);
+  } catch (err) {
+    console.error(" AI evaluation failed, using fallback:", err.message);
+
+    // 🔒 FAIL-SAFE (DO NOT BREAK INTERVIEW)
+    return {
+      contentScore: 5,
+      clarityScore: 5,
+      confidenceScore: confidenceSignals?.voice ?? 5,
+      overallScore: 5,
+      strengths: ["Answer submitted"],
+      improvements: ["AI evaluation unavailable"],
+    };
+  }
 };

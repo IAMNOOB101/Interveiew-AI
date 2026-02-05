@@ -1,9 +1,14 @@
 import express from "express";
-import { generateInterviewQuestion } from "../controllers/interview.controller.js";
 import { verifyToken } from "../middleware/auth.middleware.js";
+import { startInterview, submitAnswer } from "../controllers/session.controller.js";
+import { getInterviewHistory, getInterviewTranscript } from "../controllers/history.controller.js";
 
 const router = express.Router();
 
-router.post("/generate-question", verifyToken, generateInterviewQuestion);
+router.get("/history", verifyToken, getInterviewHistory);
+router.get("/:sessionId", verifyToken, getInterviewTranscript);
+
+router.post("/session/start", verifyToken, startInterview);
+router.post("/session/submit", verifyToken, submitAnswer);
 
 export default router;

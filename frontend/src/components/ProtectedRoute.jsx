@@ -18,7 +18,16 @@ export default function ProtectedRoute({ children, role }) {
   }, []);
 
   if (allowed === null) return <p>Loading...</p>;
-  if (!allowed) return <Navigate to="/" />;
+
+  // If auth check failed but user just logged in (localStorage flag), allow one navigation to avoid cookie timing issues in dev
+  if (!allowed) {
+    const justLoggedIn = localStorage.getItem("justLoggedIn");
+    if (justLoggedIn === "true") {
+      localStorage.removeItem("justLoggedIn");
+      return children;
+    }
+    return <Navigate to="/" />;
+  }
 
   return children;
 }
